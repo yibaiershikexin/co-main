@@ -1,0 +1,114 @@
+1.MVC:(Model,View,Controller) ,v-m(*对*)
+
+2.xhtml:xml+html(要求严格)
+
+3. 高层级抽象接口mvc:Struts是它的实现类（表现层），不仅仅用在WEB开发。
+
+4.框架：1（设计）是整个或部分系统的可重用设计，表现为一组抽象构件及
+                构件实例间交互的方法;
+                2 （应用）另一种定义认为，框架是可被应用开发者定制的应用骨
+                架。前者是从应用方面而后者是从目的方面给出的定义。
+
+5.种类：白盒是基于继承的，黑盒是基于对象构件。
+
+6.大粒度重用：模块和代码的重用可以独立出来的，灵活性、扩展性、可插入性（可以使用JASS，EJB和AJAX、JAVASCRIPT），国际化，简化输入验证。
+
+7.Struts是整合JSP和servlet的WEB层，可以完成JSP和SERVLET不能完成的功能：国际化和验证
+
+8.表现层（struts）-业务逻辑层（javaBean）-数据持久层（JDBC，Hibernate）-数据层（Mysql,Oracle,SQLSERVER)
+
+9.Struts简介
+     （1）Struts 是Apache组织的一个开放源码项目。
+     （2）Struts是一个比较好的MVC框架,提供了对开发MVC系统的底层支持。
+             （3） 它采用的主要技术是Servlet，JSP，资源文件和custom tag library
+
+10.Struts的优点：利用Struts提供的taglib可以大大节约开发时间
+                                          表现与逻辑分离
+					  维护扩展比较方便
+					   国际化支持与完善的验证框架
+					  统一错误处理方法
+					  大量内置设计模式的使用
+ 					  单例模式、组合模式、命令模式、委派模式等
+					  便于团队开发
+					  巨大的用户社区
+					   稳定且成熟
+					   大量第三方工具的支持
+
+11.Struts缺点：（1）不适合小型应用开发
+ 				     直接使用JSP和Servlet反而方便快捷
+                                    （2） 基于请求的框架
+				     相对与基于组件事件驱动的框架来说设计理念已
+ 				     经相对落后，其可重用的粒度也相对比较小
+	
+12.ActionServlet:请求分发器（总控制器）---－(分控制器) -->（LoginAction）（regsterAction）（........）-->LoginBean(真正完成复杂业务过程)
+
+13.LoginForm:login.jsp---->loginform--->ActionServlet
+                                    (1).
+                                    (2).
+14.(1).对于业务方面的验证：Action （ActionErrors,ActionMessage）
+     (2).对于数据格式的验证：ActionForm(数据为空或格式！)
+
+15.LoginForm:reset(数据库的复位方法)--->set(属性－－实例变量)---->validate(数据格式的验证方法)：默认TRUE需要验证
+
+16.在Web.xml文件中已经配置ActionServlet只能处理*.do的请求
+	path:表示JSP的请求路径 例如：/register
+	name:Action中使用到的FORM的名字，这个FORM名字必须在Struts应用中唯一
+	type:JSP的请求，由那个分控制来处理
+	input:当ActionForm的 validate()方法验证失败后(错误)，转发的页面
+	attribute:是Struts框架内部使用，在session或request范围中查找ActionForm
+	
+17.（1）验证正确
+  （2）name属性名必须正确才会到execute()中
+
+18.ActionServlet:init()
+	destory()
+	doGet()
+	doPost()
+	(1).实例化ActionServlet
+	(2)通过config属性来装配struts-config.xml文件（config参数是ActionServlet的一个实例变量）
+
+19.RequestProcessor（请求分发器）可以做成一个角色过滤器
+
+20.国际化（文字，图片，按钮）：不同国家的人访问同一个网站？？<bean/>标签的使用
+
+21.JDK:native2ascii-encoding gbk（编码）  i18n.txt（源文件）  i18n_zh_CN.properties(目标文件，Unicode)
+         在目录终端执行－－－>(首先需要进到文件所在目录下：)
+   native2ascii -encoding gbk i18n.txt 
+   native2ascii 用户名不能为空（把错误信息转换编码windows）
+        配置中读取错误信息文件的路径<message-resources parameter="ning.properties" />
+
+22.验证：(1).对于业务方面的验证：Action （ActionErrors(错误集合）,ActionMessage（错误对象））
+     		  (2).对于数据格式的验证：ActionForm(数据为空或格式！)
+
+23.数据格式：（1）前台  javascript
+          		   （2）后台ActionForm:validate()方法:ActionMessage ActionMessages
+
+24. ValidatorForm（Struts内部提供,专用的验证规范！）专用于配置数据格式验证－－－*.xml验证规范文件
+          要使用验证（1） 必须使用ValidatorForm,（2）必须继承return super.validate()
+
+25.<html:errors/>错误信息全部显示request/session
+   <html:errors property=""/>显示单个错误
+
+26.errors.add("username",new ActionMessage);
+   <html:errors property="username");
+
+27. required验证规则    resource是否查资源文件    不查资源文件，key:var定义的变量名字，值。
+
+28. 属性少比较适合使用普通ActionForm(有代码，有业务方法)
+      属性多比较适合使用 动态ActionForm（无代码，无java文件，配置文件中取代，Struts内置的）Action 比较多的时候，多个方法
+
+29. 标签<bean:define/>将范围对象中的变量定义为新的变量
+  id name scope 基本数据类型
+  id name scope property 属性
+30.(Bean（write）,logic(iterator),html(转发，图片，表单))
+
+31.Netesd标签:name:nestedUserForm嵌套属性（基本标签的扩展）
+   Tiles标签:（模板）和JSP的include相比较（不需要多个界面修改，以及可以国际化）
+
+32.Enctype:上传文件的字符编码
+
+33.<html:file property="file"/>:绑定要上传的文件
+
+34.enctypte="multipart/form-data":multipart将上传的文件分块form-data:对文件编码设置
+
+35.FormFile:专用于要上传文件

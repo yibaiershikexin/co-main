@@ -1,0 +1,141 @@
+Struts部分
+	Struts部分经常出现的问题有：
+	1）对Struts运行流程不清楚。对ActionServlet的职责认识不够。
+	2）国际化资源文件的使用
+	3）多种ActionForm、普通数据验证、验证框架之间的关系不清晰。
+	4）部分Sturts标签的使用（如Nested、Tiles）
+
+1.理解MVC模式（**）
+
+2.Web层架构之--- Struts(MVC)
+
+3.Struts的开发步骤(***)---用struts做一个简单的登陆例子(JDBC版本)
+
+4.重点ActionServlet的职责（***）(要理解ActionServlet究竟做了什么？)
+	--回想usermanager项目中的UserManageServlet这个Servlet是怎么控制流程的？
+
+	UserManageServlet的核心代码：(跟Struts的ActionServlet执行流程作对比，是不是很相似啊！！！原来大家都是总控制器)
+
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String path = req.getServletPath();
+		Action action = null;
+		String forward = null;
+		if("/add.do".equals(path)) {
+			action = new AddUserAction();
+			forward = action.execute(req, resp);
+		} else if("/delete.do".equals(path)) {
+			
+		} else if("/list.do".equals(path)) {
+			action = new ListAllUserAction();
+			forward = action.execute(req, resp);
+		} else if("/modify".equals(path)) {
+			
+		} else if("/update.do".equals(path)) {
+			
+		} else if("/query.do".equals(path)) {
+			
+		}
+		RequestDispatcher rd = null;
+		if(forward != null) {
+			rd = req.getRequestDispatcher(forward);
+			rd.forward(req, resp);
+		} else {
+			rd = req.getRequestDispatcher("error.jsp");
+			rd.forward(req, resp);
+		}
+	}
+
+	模拟ActionSevlet的核心代码：(帮助理解Struts的整个运行流程)
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//获取用户具体的请求路径
+		String path = request.getServletPath();
+		Action action = null;
+		if("/login.do".equals(path)){
+			//这时定位到struts-config.xml中path="/login"的<action>
+			//然后根据<action>的name="com.models.UserForm"构造Form Bean
+			//所谓的自动装配Form Bean
+			ActionForm form = new com.UserForm();
+			form.setUserName(request.getParameter("userName"));
+			form.setPassword(request.getParameter("password"));
+			
+			//根据<action>的type="com.controllers.LoginAction"构造action实例
+			Action action = new com.action.LoginAction();
+	
+			//构造ActionForward
+			ActionForward actionForward = new ActionForward();
+
+			//调用action的execute()方法,把参数传递过去
+			ActionForward actionForward = action.execute(actionForward,form,request,response);
+
+			//根据<forward>的path=“/success.jsp”进行跳转
+
+		}
+	}
+
+5.国际化的运用（**）	
+	---掌握在项目中如何使用国际化
+	步骤如何：
+	1). 编写写资源文件，如下：
+	EricResource_en_US.properties：
+
+	login.username = UserName
+	login.password = Password
+
+	2). 在/WEB-INF/struts-config.xml中添加如下配置：
+
+	<message-resources parameter="myresource.EricResource_en"/>
+
+	3). 在页面如下写：
+
+	<bean:message key="login.username" />
+	则页面此处会到配置的属性文件中去找login.username对应的文字来显示。
+
+	总结：关键步骤是要让你的项目找到相应的国际化资源文件！！！找到文件，想怎么显示就怎么显示咯~~~
+
+6.Struts里的多种ActionForm的使用(***)
+
+ActionForm的类型	是否支持普通数据验证	是否支持数据验证框架（validation.xml）	对应的类
+普通ActoinForm			支持			不支持				org.apache.struts.action.ActionForm
+动态ActionForm（配置）		不支持			不支持				org.apache.struts.action.DynaActionForm
+验证ActionForm			支持			支持				org.apache.struts.validator.ValidatorForm
+动态验证ActionForm（配置）	不支持			支持				org.apache.struts.validator.DynaValidatorForm
+
+提醒：使用普通数据验证必须重写ActionForm的validate()
+      使用数据验证框架则无需重写validate(),如要重写则必须显示调用父类的validate()
+      public ActionErrors validate(ActionMapping mapping,
+			HttpServletRequest request) {
+		return super.validate(mapping, request);
+      }
+
+循序渐进，由简单到复杂学习！要根据你的项目需求来选择使用合适的ActionForm。记住：没有最好的，只有最合适的！
+
+7.业务逻辑验证
+	--- 注意：和数据验证区分开，概念别搞混淆了！
+	1）数据验证：在ActionForm中做验证，是对数据合法性的验证（比如用户名不能为空！）。通过调用ActionForm中的validate()方法来实现，既可以手写验证规则，也可以使用数据验证框架指定验证规则。
+
+	2）业务逻辑验证（业务逻辑合法性验证）：在Action中做验证，是对业务合法性的验证（比如用户名在数据库不存在,登陆失败！）。需要在Action中编写验证规则。
+
+	代码编写：
+	1)在Action中添加：
+		ActionMessages am = new ActionMessages();
+		am.add( "request", new ActionMessage("error.index.logic") );
+		am.add( "request2", new ActionMessage("error.index.name") );
+		this.addErrors( request, am );
+		return mapping.findForward("first");
+
+	2)跳转和指定错误显示页面
+		a)直接跳转到return mapping.findForward("first");中指定的页面
+		b）在页面中的<html:errors />去自动检查和显示错误信息。
+
+8.Sturts里多种Action的使用（***）
+	Action类型	对应的类					配置方式
+	Action		org.apache.struts.action.Action			
+	DispatchAction	org.apache.struts.actions.DispatchAction	parameter="method"
+	······		······						······
+
+9，Struts标签的使用（**）
+
+

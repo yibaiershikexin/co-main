@@ -1,0 +1,106 @@
+--------------------------------------------------------------------------------------------------------------------
+o	Incident ticket (INC), whenever每当 a doubt疑问/production issue/defect is found from user, they will raise incident for tracking跟踪
+o	Problem ticket (PBI), whenever a defect/bug is confirmed 确认need program change, a problem ticket will be logged for the tracking
+o	Change Request for Data Patch补丁 from production issue (CRQ), whenever a problem ticket is raised, the corresponding相应的 CRQ for enhancement will be raise for porting purpose.
+o	Change Request for Data Patch from User (CRQ), whenever a data patch is required (user raise or from production issue) a CRQ for data patch will be raised.
+o	Data extraction取出 ticket (WO) (Work Order), whenever user needs report from production database, a Work Order命令 ticket will be raised.
+
+INC 事件标签 PBI 程序标签 CRQ(PBI之后)更改请求的数据补丁WO（user）取report脚本命令 
+REQ (Reference参考 Number)
+
+Difan Zhong <difan.zhong@ebaotech.com>; Qilong Tang <qilong.tang@ebaotech.com>; Jianye Shang <jianye.shang@ebaotech.com>; Jiannan Zhang <jiannan.zhang@ebaotech.com>; Xiaoda Huang <xiaoda.huang@ebaotech.com>; Eric Liu <eric.liu@ebaotech.com>; Zhihao Gong <zhihao.gong@ebaotech.com>
+-------------------------------------------------------------------------------------------------
+
+1.	New guys on board - Pengfei Zhang, Chuntao Huang
+2.	关于回邮件，丢掉中间邮件的问题 – to find the related相关的 mail in this conversation会谈. 
+3.	春节期间上网卡
+4.	[强调] GST may be adjusted in SG 2018
+5.	关于solution document的 review/approve页，请详细填写具体的approver.
+   
+6.	[强调]关于incident的cancel的reason
+7.	关于IMEBAOGI邮件组
+8.	关于Dy	具的安装和使用
+
+-------------------------------------------------------------------------------------------------
+#Endorsement Type:
+	Basic Information Endorsement 
+	Cancellation 取消删除
+	Changing Commission委托/佣金 Rate 佣金率
+	Guarantor Amendment 担保人修正
+	NCR Refund  /* NCR */退还
+	POI Extension延期/Shorten  /* POI */ 延期/缩短
+	Premium Adjustment 
+	Reinstatement after Cancellation 删除后的恢复
+	Reinsurance Adjustment  再保调整
+-------------------------------------------------------------------------------------------------
+#替换log类：
+DefaultPolicyPremiumJavaCalculator.java
+	FMSServiceProxyImpl.java
+	DefaultInsuredJavaCalculator.java
+		VehicleInsuredBO vehicleInsuredBO = (VehicleInsuredBO) policyBO.getInsuredBO(aIPremInfo.getInsuredID());
+			PolicyBOImpl.java
+				load("insuredBOList");
+-------------------------------------------------------------------------------------------------				
+每次calculation后都被记录，只能reject掉才行
+additional premium  计算：expiry /* ?k'spa??ri */
+	expiry date -endo 起效effective date  
+	即：policy unexpired period周期
+		policy unexpired period /365 x Flat Premium		
+-------------------------------------------------------------------------------------------------	
+正则表达式替换：
+	1：[com.ebao.gs.pub.fms.data.dao.TGsFmsModuleMap@daf0f5d5[mapId=300000245]]
+\[com.{0,}\]
+-------------------------------------------------------------------------------------------------				
+expire date 到期时间
+premium currency 保费货币    SGD 新加坡币
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

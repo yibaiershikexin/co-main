@@ -1,0 +1,182 @@
+-------------------------------------------------------------------------------------------------
+保单相关
+?	保单(Policy) 就是保险合同，是保险契约成立的一个凭证/承载体
+?	标的(Insured 投保 Object) 保险合同所保的对象，例如你给你的车买了份保险，标的就是你的车
+?	投保人(Policy Holder) 买保险的人，你如果买了份保险，那你就是投保人
+?	代理人(Agent 代理人/Broker 经纪人) 代理保险公司卖保险给你的人，接到过送你免费保险的电话?嗯，她/他可能就是代理人了
+?	保额(Sum Insured)保险对象的价值，一旦出险，保险公司可以赔付给你不超过保额的补偿金  （出险后，补偿金不超过保额）
+?	保费(Premium)/prA miem/ 买保单付出去的钱
+?	拥金(Commission) 你买保单后保险公司因此付给代理人的钱
+?	责任组合(Cover Type) 保险公司担保的责任范围，出险超出此责任范围保险公司不予赔付
+?	利益项(Benefits利益/Interest兴趣利益) 保险的最小单位，一个例子是这样的，你想保一幢房子及其里面的家具，那可能的利益项有家电，家具，房子
+?	条款(Clause) 保险公司所立的限定赔付范围的说明，或者是免责声明
+?	折扣/加费(Discount/Loading) 保险公司根据市场情况、公司政策和客户情况对保费进行折扣优惠或者加费
+?	起止期(POI, Period/pir ried/周期 of Insurance) 保单生效周期
+-------------------------------------------------------------------------------------------------
+费用相关
+?	SGP (Standard 标准 Gross[ɡros]总数 Premium) 标准毛保费，也叫公式保费，根据精算公式算出来的保费
+?	Annual 年度的 Premium 基本年保费
+?	PI (Premium Income) 保费收入，现有系统中等同于SGP
+?	AGP (Adjusted调整过的 Gross Premium) 调整后毛保费，核保人员可以调整毛保费 
+?	API (Adjusted Premium Income)  调整后保费收入，现有系统中等同于AGP
+?	SNP(Standard Net净赚/纯粹的/网络 Premium) 标准净保费，在AGP基础上去除Discount/loading影响后的保费
+?	ANP (Adjusted Net Premium) 调整后净保费 
+?	Tax & Fee 税和费，税为保险公司代扣的税，一般受政府政策影响，而费用即保单相关的手续费等，由保险公司自行规定
+?	NCD(No Claim Discount) 无赔款优待，一般指机动车保险条款中的被保险人因在保险期限内没有提出索赔申请，续保时可以享受保险公司的保费折扣
+?	APP (Actual Payable Premium) 实际应缴保费，投保人应缴的保费
+-------------------------------------------------------------------------------------------------
+功能相关
+?	New Business 新契约活动，产生保单的活动
+?	Submission 询价，客户有对某些产品有兴趣，系统中记录下这种兴趣/意向就叫询价
+?	Quick Quote 快速报价，针对客户的意向和一些必要信息进行报价的活动
+?	Data Entry 录单，录入保单所需的完整信息									
+?	Quote Sent 发送发报单给客户确认
+?	Underwriting 核保，保险公司有一帮子核校风险的人，为核保人员，也是风险控制的一个活动
+?	Quote Bound 客户回馈报价信息确认立保，Quote Bound之后保险合同生效
+?	Cover Note 暂保单，与正式保单一样同法律率，一般有效期较短，为临时保单
+?	Issuance /i shuens/保单出单，保单正式生效
+?	Quotation Form 报价单
+?	Policy Schedule /'s kai zhu:l/正式保单
+?	Endorsement 批改，在寿险中也叫保全，为保单生效后进行修改，有多种批改类型，如基本信息批改、POI平移、POI延长、保额恢复，退保等
+?	Renewal [rA nu:?l] 续保，保单到期后续约，不过会产生一张新的保单
+?	RI Reinsurance 再保险，指公司与公司之前的保险风险转移，当一个保单的保额太大而承保公司觉得风险太大时，便把部分风险转给再保险公司承单，是一种风险控制的活动
+?	Coinsurance 共保险，投保人找多家保险公司一起来承保标的，按保险额度分别付予保费的一种活动
+?	Claim 理赔，嗯。。。买保单不就是为了万一出险的时候可以这个么。。。
+?	RMS (Rule Management System) 规则引擎
+?	FMS (Formula['for mula]公式 Management System) 公式引擎
+?	UIC (User Interface System) 用户接口配置管理
+?	Rate[ret]比率 Table 费率表，也可以作它用
+?	DMS (Document Management System) 文档管理系统
+?	String Resource 多语言数据，用于支持I18N( internationalization /li lai/的首末字符i和n，18为中间的字符数 是“国际化”的简称)
+?	Code Table 代码表
+#   CMS VPMS： 和FMS对应的计算方式
+#	CI （certificate list）
+#	ARAP  Accounts 账目 Receivable应收的 And Accounts Payable 应付的	
+#	CR (customer Requirement)  
+#	SR (System Requirement)	
+#	Artf(Internal Defect)
+#	EP：EasyPortal入口门户  GC：General Claim GS:General System  
+#	PA  Policy admin 模块
+-------------------------------------------------------------------------------------------------
+?	PD/DD 项目总监/GDC 交付总监， 负责整个项目的交付，整个项目的头，一般我们接触不到  Product Director主管
+?	PM/DM 项目经理/GDC 交付经理，负责项目的整体进度，和项目的日常运作协调，有关项目资源、进度的问题就找他就好  Product Manager
+?	AA 架构师，负责把握整个系统的架构和性能，如果遇到一个问题会影响到系统的多个方面，或者是遇到问题实在不会解决，就问他吧
+?	Designer /di 'zaine/设计人员， 负责根据需求进行系统设计，遇到开发相关问题时，可以先找他们
+?	AD 嗯，这个我知道的，我就是AD，负责根据概要设计进行详细设计，编码，单元测试，并辅助ST进行功能测试
+?	AD Leader 开发组长，负责协调AD的开发进度，任务分配，版本发布等，如果没活干了，找他吧，呵呵。。。如果有解决不了的问题或者依赖，也请找他
+?	BA 业务分析人员，负责对需求进行分析，产生需求文档，如果对需求有疑问，或者是想学习业务知识的话，找他们吧   (Business Analysis)
+?	ST 测试人员，一般我们在功能完成后需要把结果展示给ST和BA看，ST会根据测试用例进行验证，如果失败则会提交BUG。所以 AD需要和ST多多交流，发布BUG后，AD需要来分析，确认，并修复BUG   (System Tester)
+?	CM 配置管理员，需要开通CC/CQ/Source Forge权限，Approve版本，发布可以找他
+?	TS 技术支持， 需要开通DB/FTP/SSH权限，有环境问题，部署环境，发布问题可以找他
+?	QA 这个。。。PMO的代理人，负责对项目设计质量指标，监控项目流程，质量和进度
+?	PMO？项目管理委员会。。。
+?	LAN Admin 网管，当你的VM或电脑有问题时请找他们
+	Delivery交付 Lead
+	Contract Executive, Personal Lines
+	CM 
+-------------------------------------------------------------------------------------------------
+CAR-contractor's承包商 all risks
+CBL-bailee's受托者(carrier) liability 
+CBP-business protector保护者 
+CBT-theft偷盗 insurance 
+CBU-business  insurance 
+CBV-boiler and pressure vessel 
+CCM-money insurance 
+CDO-directors主管 & officers' liability 
+CDS-deterioration恶化 of stock股票 in cold storage仓库 insurance 
+CEA-erection建筑物 all risks
+CEE-electronic电子 equipment insurance 
+CEO-errors and omissions 
+CFB-finance bond债券
+CFG-fidelity忠诚 guarantee担保 insurance 
+CFH-hawker小摊 stall货摊 fire insurance 
+CFI-industrial工业的 all risks 
+CFW-foreign worker's guarantee 
+CGL-general liability 
+CLG-renovation修理 contractor's licence许可证 guarantee 
+CLL-loss of licence insurance 
+CLP-loss of profit利益 following machinery breakdown 
+CMG-marine cargo 船货
+CMH-marine hull船体
+CMI-medical indemnity补偿 
+CMP-machinery 机械
+CPB-performance性能/绩效 bond
+CPG-plate glass 玻璃板insurance 
+CPI-professional职业人员 indemnity 
+CPL-public liability insurance 
+CPR-public  liability insurance 
+CRD-rental 租金deposit押金定金 guarantee HDB
+CRJ-rental deposit guarantee JTC
+CRO-rental deposit guarantee other 
+CRS_all risk insurance 
+CSF-fire insurance 
+CWI-work injury伤害 compensation赔偿 
+CWL-warehouseman's liability 
+CXF-consequential间接 loss insurance 
+-------------------------------------------------------------------------------------------------
+GAP-specialCare(Autism) insurance 
+GAT-travel insurance (for government travellers )
+GBS-bus insurance 
+GCT-corporate公司的 travel 
+GCV-commercial商业的 vehicle交通工具 insurance 
+GDB-foreign maid女仆 insurance 
+GDS-special Care(Down syndrome )insurance 
+GFT-fleet舰队 insurance 
+GGO-golfer's高尔夫 insurance 
+GHA-enhanced加强的 home insurance 
+GHC-hospital care insurance 
+GHI-home insurance 
+GLD-loan贷款 default insurance 
+GMC-motorcycle摩托车 insurance 
+GMD-Personal Mobility移动 Guard保卫 insurance 
+GMH-homeSecure insurance 
+GMI-mortgage抵押 interest利益 insurance 
+GMS-StudySecure insurance 
+GMT-motor发动机 trade交易 insurance 
+GOP-overseas海外 student personal accident insurance 
+GOS-overseas study protection保护 plan 
+GPA-personal accident insurance 
+GPB-PA assurance 
+GPc-private car insurance 
+GPD-personal accident infectious传染性的 diseases insurance 
+GPG-purchase购买 Guard 
+GPO-plines master 
+GPP-personal accident infectious diseases protector insurance 
+GPT-travel insurance 
+GRS-personal accident pideguard insurance 
+GSC-silver 银Care insurance 
+GTA-annual年度的 travel insurance 
+GTB-yearly travel bliss旅行快乐 insurance 
+GTG-travel bliss insurance 
+GTS-annual travel bliss insurance 
+GTT-travel bliss insurance 
+GYT-taxi insurance   
+#GFM-FLEET MASTER INSURANCE
+-------------------------------------------------------------------------------------------------
+GST 税
+SLA  (Service Level Agreement 同意协定) 3个等级 Major Moderate Minor
+IDE  Integrated Development Environment 
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

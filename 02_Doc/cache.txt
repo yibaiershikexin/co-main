@@ -1,0 +1,195 @@
+-------------------------------------------------------------------------------------------------
+问题：
+2018年6月2日周六
+	download CI 的逻辑
+	#记住代码流UAT和代码流对应环境UAT VF (verification verify)的区别
+	
+	office：设置不能编辑和编辑内容标识
+	UAT第3周开始管user 和IM 就要的参数是什么？IM和user的区别？#Information Management 
+	为什么产品包会有生效时间？
+	#table list 是要求trunk合包里的db,但是经过验证，我们要验证的trunk合包其实不包括UATVF --UAT流上的DB并不会merge到Trunk合包,从UAT3 来分析 每次我们trunk合包都会发UAT3  每次trunk合包是没有UATVF内容的   所以table list 应该选择UATVF合包和Trunk合包两个包里面的内容
+	#UAT合包V1.11.05，它包括V1.11.05.10….90的所有tunk和V1.11.05.91….99的所有UAT  例如Trunk合包V1.11.06，它只包括V1.11.06.10….90的所有tunk
+2018年6月19日 Tuesday
+		#https://blog.csdn.net/qinzhenhua100/article/details/53227841
+		response.sendRedirect()与request.getRequestDispatcher().forward()区别
+	
+-------------------------------------------------------------------------------------------------
+alter table， create table， create view，或者replace table，replace view
+#UAT合包，UAT merge->trunk，tech_refresh merge->trunk ,trunk合包,trunk merge->UAT 再commit上UAT3 
+
+#UAT3 hotfix路径
+/appsit/gc/applications/insurance/web/WEB-INF
+
+zhouwu 合包  周一早上UAT2   周四生产
+星期五上午faUAT2
+
+local_host="`hostname --fqdn`"
+local_ip=`host $local_host 2>/dev/null | awk '{print $NF}'`
+/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"
+echo $x|grep -o '[0-9]\+'
+
+
+usr/local/imv3_uat_vf/Oracle/Middleware/user_projects/domains/gs/base_domain/EBAO_ARCHIVE_HOME/CI_UPLOAD/9084749/NB
+setIsValid	
+
+-------------------------------------------------------------------------------------------------
+#Struts 去除更换内容
+FormFile 这个替换成import org.springframework.web.multipart.MultipartFile; 
+然后有的form有reset方法，直接把入参里面的actionMapping去掉就好
+
+还有一点，遇到ResponseUtils.write ，替换成
+JspWriter writer = pageContext.getOut();
+writer.print(str);  
+import org.apache.struts.config.ForwardConfig;
+import org.apache.struts.util.TokenProcessor;
+import org.apache.struts.Globals;                     public static final String REQUEST_PROCESSOR_KEY = "org.apache.struts.action.REQUEST_PROCESSOR";
+import org.apache.struts.action.ActionServlet;        HttpServlet
+import org.apache.struts.action.ActionErrors;
+-------------------------------------------------------------------------------------------------
+#Bailing UAT3
+
+CMG
+Item1: Vessel Name not response
+修改代码已上UAT VF和UAT3
+
+Item2: Transhipment info canno be added
+90 更改代码没有出现相同问题
+Item3: Contact Information of Sales Channel, UI seems normal, but still prompt error at backend, please also double check.
+
+Item4: some 'magnifying' with 404 error, may same root cause of user's issue, just please double check
+导致原因同第一个问题
+-------------------------------------------------------------------------------------------------
+batch check 的三个SQL
+D:\Daily Report\daily check
+Travel&ecomm check.sql   检查travel/ecomm  batch 是否执行正常
+BATCH_GS.sql  检查GS的batch 是否执行有超过一个小时
+BATCH_GC.sql  检查GC的batch 是否执行有超过一个小时（可以不用切换GC的数据库）
+-------------------------------------------------------------------------------------------------
+明天的jar确认GS
+服务器删掉老jar
+删掉所有的老的jar
+
+chenlin:GC pkg
+-------------------------------------------------------------------------------------------------
+JSP 是立即生效的
+MCOExtendedPoint 
+
+GFM现在代码里默认是这个产品是关闭的，也就是说打包发布就是关闭的，到时候发生产也是关闭的
+但是为了让user测试，我们UAT3要保持产品是生效的，开着的，所以我们每次发UAT3，cindy和宝哥这边应该都有个hotfix要发
+
+-------------------------------------------------------------------------------------------------
+#90
+find /usr/local/weblogic/user_projects/domains/gs/applications/insurance/web/WEB-INF/classes -mmin -2
+-------------------------------------------------------------------------------------------------
+CCM
+DBA
+
+BK
+IM  USer
+IM 分为对口的  BA和TEchnical  BA  WeePing老板   Candy  HaiYing Alice  TEchnical  Chri
+Team  CCM 打印  Wanyee
+Reporting Service 生产
+OLA 
+Ecomernce
+FPL fast product lauch
+
+EP motel
+MP  marine portal  船本身和货物的  宝哥   全量的
+
+
+USER 产品线   PL CL  MT Marine
+
+MT sherry 
+FN user分
+
+tickeuser 提到都是REQ reference
+INC 生产问题  最长6天 3天 H1 M2 没有L6   cancel resolve    需要改程序我们提个PBI  20 60 90  建议到trunk不急
+WO抽取  WO疑问 
+CRQ data pactch
+CRQ-ecnhancment
+
+REQ
+CRQ
+WO
+PBI
+
+RI reinsuracne
+
+-------------------------------------------------------------------------------------------------
+#Common Party 与gs gc相互覆盖问题
+这个问题是struts升级引入的，common party和gs/gc的struts 配置有重复，gs/gc的配置覆盖了common party的配置，但是这次修改后PartyRoleAction指向的jsp改回了原来party的配置。
+
+修改方案如下：
+
+根据GS里面的struts-config-party2.xml和struts-config-party.xml，GC里面的struts-config-party2.xml里面配置的action->forward关系重新修改一下相关的common party的action文件，把forward指向gs/gc客户化后的页面。
+
+单就这一个defect GIBAU-446来说，修改PartyRoleAction里面的createNewPartyOrRole变量，从“/icommon/party/jsp/partyrole/createPartyOrRole.jsp”改成“/gs/integration/cr/createPartyOrRole.jsp”
+
+修改的时候要注意的是，如果GS里面的配置和GC的有覆盖，请根据当前系统来设置不同文件里面配置的返回值，如果GS的两个xml自己有覆盖，请根据struts-config-party2.xml里面的配置来设置
+比如/OtherContactQueryAction这个action三个配置xml里面都有那么上下文判断下来是GS系统的话对应的forward就取struts-config-party2.xml里面配置的/gs/integration/cr/icmOthContact.jsp，GC系统的话就去struts-config-party2.xml里面配置的/icommon/party/jsp/contact/icmOthContact.jsp
+
+
+url可能对应两个系统都存在的jsp  但是根据不同系统判断  返回各自系统的jsp
+
+有一种情况是只有一个系统有客户化jsp了
+另一个系统要返回party原来设置的jsp
+不能返回另一个系统客户化的jsp，因为根本在这个系统不存在
+request.getContextPath() 
+/gcs
+RE: 讨论下以后我们icp流和common party流怎么管理
+ #原来CP 中xml配置：/commonparty_SRC/meta-inf/META-INF/icp/struts/struts-config-party.xml
+ #gs struts-config-party.xml是无效的
+-------------------------------------------------------------------------------------------------
+Incident received.
+Below is the root cause and solution. Please review and advise if we could resolve the incident and log Problem for fixing.
+
+Root Cause 
+Error Scenario - 
+Add new sum insured for GPO at endorsement, system do not prompter exceed message
+
+Root Cause - 
+After checking the underwriting rule for exceeding risk accumulation for endorsement, we find below products were not configured in the rule which means system won’t check whether sum insured exceeds risk accumulation limit.
+CDS
+CLP
+GMD
+GPG
+GPO
+GSC
+
+Impact Analysis 
+List of affected records – N/A
+Time Period – Since these products go live
+Dependencies – N/A
+Other possible affected scenarios – N/A
+
+Solution
+Program changes -
+Modify the underwriting rule to be applied to these products
+
+Action plan –
+V1.11.07
+ 
+Test approach -
+1.	Add new sum insured(exceed limit) for CDS/CLP/GMD/GPO/GSC in basic information endorsement, system will prompter the message exceeding risk accumulation limit and send to underwriting.
+Note: There is no risk accumulation rule for GPG product, so that GPG is not in testing scope.
+-------------------------------------------------------------------------------------------------
+3323  solor
+-------------------------------------------------------------------------------------------------
+生产发布：8点30多开始，gs下载完成后下载log
+https://paigw01.income.com.sg:8443/adama/ 
+ebaoGI_1/Eudcsvc33
+
+172.16.2.167   ebaosup1/Master1234
+172.16.2.168   ebaosup1/Ebao123456 
+-------------------------------------------------------------------------------------------------
+#产品包
+Path：UAT_GS\initial_SQL\inc_init_db\sit\30_pd
+-------------------------------------------------------------------------------------------------
+#SIT 
+FPL SIT环境（端口是以21开头的，SSH 用户名是giv3uat
+-------------------------------------------------------------------------------------------------
+/appsit/gs/applications/insurance/web/WEB
+-------------------------------------------------------------------------------------------------
+Implementation-Version: 2.5.6 
+3.2.5.RELEASE 
+-------------------------------------------------------------------------------------------------
