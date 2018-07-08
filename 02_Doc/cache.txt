@@ -193,3 +193,51 @@ FPL SIT环境（端口是以21开头的，SSH 用户名是giv3uat
 Implementation-Version: 2.5.6 
 3.2.5.RELEASE 
 -------------------------------------------------------------------------------------------------
+adhoc batch pre schedule batch
+又要定时run 又可以根据starttime和endtime执行
+如果框架上不能实现的话，就用代码逻辑实现吧，比如一个环境变量来控制时间，读取不到就用process date
+-------------------------------------------------------------------------------------------------
+IncomeeBao2018_July02
+
+-------------------------------------------------------------------------------------------------
+sq  sta  end  status0 可以  1不能
+t_dms_schedual
+
+
+基于昨天会议的内容，结合目前我和Eric手中的活，以下是任务计划安排 ：
+
+1.	7/3到7/4 梳理staging table中的字段
+2.	7/9 之前完成CP_POLICY_DTLS的部分
+3.	7/9 到7/13 完成剩下部分
+
+另外dashboard这张全量表的话上次Stephanie说还有需要和Soloa商量的地方，所以目前这张表放在最后处理。
+
+
+Kindly take note that, it’s confirmed that for staging table CP_POL_DASHBOARD, 
+we could only check on the in force有效的 policy and quotations, no need to check on terminated被终止的 policies.
+
+
+-------------------------------------------------------------------------------------------------
+
+#Oracle Database 12c完全参考手册
+-------------------------------------------------------------------------------------------------
+WO0000000139325
+05的uAT合包中UAT
+06UAT合包
+07trunk合包
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
